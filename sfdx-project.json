@@ -5,8 +5,7 @@
       "default": true
     }
   ],
-  "name": "meridian-leasing-salesforce-metadata",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "62.0"
+  "sourceApiVersion": "59.0"
 }
