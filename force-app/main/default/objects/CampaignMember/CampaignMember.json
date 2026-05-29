@@ -1,29 +1,340 @@
 {
-  "objectApiName": "CampaignMember",
-  "label": "Campaign Member",
-  "objectType": "Standard",
-  "description": "Manages the relationship between Campaigns and Leads or Contacts. Configuration includes review of current campaign member fields, campaign member status review, relationship validation with Campaign, Lead, and Contact records, and migration of campaign member records with validation that campaign history is accurately preserved.",
-  "migrationIncluded": true,
-  "migrationNotes": "Campaign member record count is N (to be confirmed). Campaign history must be accurately preserved post-migration. Used by the MLC Asset Mass Creation Flow to retrieve contacts for asset creation.",
-  "relationships": [
-    { "relatedObject": "Campaign", "type": "ManyToOne", "description": "CampaignMember belongs to Campaign via CampaignId" },
-    { "relatedObject": "Lead", "type": "ManyToOne", "description": "CampaignMember optionally linked to Lead via LeadId" },
-    { "relatedObject": "Contact", "type": "ManyToOne", "description": "CampaignMember optionally linked to Contact via ContactId" },
-    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "CampaignMember Contacts are selected during MLC Asset mass creation flow" }
-  ],
-  "fields": [
-    { "apiName": "Id", "label": "Campaign Member ID", "type": "Id", "required": true, "custom": false },
-    { "apiName": "CampaignId", "label": "Campaign", "type": "MasterDetail(Campaign)", "required": true, "custom": false },
-    { "apiName": "LeadId", "label": "Lead", "type": "Lookup(Lead)", "required": false, "custom": false },
-    { "apiName": "ContactId", "label": "Contact", "type": "Lookup(Contact)", "required": false, "custom": false },
-    { "apiName": "Status", "label": "Member Status", "type": "Picklist", "required": false, "custom": false, "notes": "Review and replicate campaign member status picklist values from source org" },
-    { "apiName": "HasResponded", "label": "Responded", "type": "Checkbox", "required": false, "custom": false },
-    { "apiName": "FirstRespondedDate", "label": "First Responded Date", "type": "Date", "required": false, "custom": false },
-    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
-    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
-  ],
-  "pageLayout": {
-    "notes": "Recreate current page layout. Validate campaign history is preserved."
+  "objectMetadata": {
+    "name": "CampaignMember",
+    "label": "Campaign Member",
+    "labelPlural": "Campaign Members",
+    "keyPrefix": "00v",
+    "custom": false,
+    "customSetting": false,
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "_sourceNote": "Schema constructed from Salesforce standard definition. Live describe was unavailable in workspace due to artifact mis-mapping in prior session.",
+    "childRelationships": [
+      {
+        "cascadeDelete": false,
+        "childSObject": "ActivityRelation",
+        "deprecatedAndHidden": false,
+        "field": "RelationId",
+        "relationshipName": "ActivityRelations"
+      },
+      {
+        "cascadeDelete": true,
+        "childSObject": "Attachment",
+        "deprecatedAndHidden": false,
+        "field": "ParentId",
+        "relationshipName": "Attachments"
+      },
+      {
+        "cascadeDelete": true,
+        "childSObject": "ContentDocumentLink",
+        "deprecatedAndHidden": false,
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "EntitySubscription",
+        "deprecatedAndHidden": false,
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity"
+      },
+      {
+        "cascadeDelete": true,
+        "childSObject": "FeedItem",
+        "deprecatedAndHidden": false,
+        "field": "ParentId",
+        "relationshipName": "FeedItems"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "FlowRecordRelation",
+        "deprecatedAndHidden": false,
+        "field": "RelatedRecordId",
+        "relationshipName": "FlowRecordRelations"
+      },
+      {
+        "cascadeDelete": true,
+        "childSObject": "Note",
+        "deprecatedAndHidden": false,
+        "field": "ParentId",
+        "relationshipName": "Notes"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "ProcessInstance",
+        "deprecatedAndHidden": false,
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "ProcessInstanceHistory",
+        "deprecatedAndHidden": false,
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "Task",
+        "deprecatedAndHidden": false,
+        "field": "WhatId",
+        "relationshipName": "Tasks"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "TopicAssignment",
+        "deprecatedAndHidden": false,
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "UserRecordAccess",
+        "deprecatedAndHidden": false,
+        "field": "RecordId",
+        "relationshipName": null
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "Vote",
+        "deprecatedAndHidden": false,
+        "field": "ParentId",
+        "relationshipName": "Votes"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "WorkItemHistory",
+        "deprecatedAndHidden": false,
+        "field": "RecordId",
+        "relationshipName": "WorkItemHistories"
+      },
+      {
+        "cascadeDelete": false,
+        "childSObject": "CampaignMemberStatus",
+        "deprecatedAndHidden": false,
+        "field": "CampaignId",
+        "relationshipName": "CampaignMemberStatuses"
+      }
+    ]
   },
-  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Campaign Member ID",
+      "type": "id",
+      "custom": false,
+      "length": 18,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true,
+      "unique": true
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "custom": false,
+      "nillable": false,
+      "createable": true,
+      "updateable": false,
+      "filterable": true,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Campaign"
+    },
+    {
+      "name": "LeadId",
+      "label": "Lead ID",
+      "type": "reference",
+      "custom": false,
+      "nillable": true,
+      "createable": true,
+      "updateable": false,
+      "filterable": true,
+      "referenceTo": [
+        "Lead"
+      ],
+      "relationshipName": "Lead"
+    },
+    {
+      "name": "ContactId",
+      "label": "Contact ID",
+      "type": "reference",
+      "custom": false,
+      "nillable": true,
+      "createable": true,
+      "updateable": false,
+      "filterable": true,
+      "referenceTo": [
+        "Contact"
+      ],
+      "relationshipName": "Contact"
+    },
+    {
+      "name": "Status",
+      "label": "Member Status",
+      "type": "picklist",
+      "custom": false,
+      "nillable": true,
+      "createable": true,
+      "updateable": true,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "HasResponded",
+      "label": "Responded",
+      "type": "boolean",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "custom": false,
+      "nillable": false,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "FirstRespondedDate",
+      "label": "First Responded Date",
+      "type": "date",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "Salutation",
+      "label": "Salutation",
+      "type": "picklist",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "FirstName",
+      "label": "First Name",
+      "type": "string",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "LastName",
+      "label": "Last Name",
+      "type": "string",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "Type",
+      "label": "Member Type",
+      "type": "string",
+      "custom": false,
+      "nillable": true,
+      "createable": false,
+      "updateable": false,
+      "filterable": true,
+      "sortable": true
+    }
+  ]
 }
