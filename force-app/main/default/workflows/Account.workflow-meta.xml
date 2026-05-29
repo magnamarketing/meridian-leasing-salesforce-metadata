@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <rules><fullName>Account Site %3D City%2C State</fullName><active>false</active></rules>
+    <rules><fullName>Change of Introduced By</fullName><active>false</active></rules>
+    <rules><fullName>MLC New Client Onboarding</fullName><active>false</active></rules>
+    <rules><fullName>MLC New Customer - Update Customer Conversion Date</fullName><active>false</active></rules>
+    <rules><fullName>MLC Update Asset Categories Score V2</fullName><active>false</active></rules>
+    <rules><fullName>MLC Update Filing Ratio Score</fullName><active>false</active></rules>
+    <rules><fullName>Reset CB_CreditCheck Tasks Created</fullName><active>false</active></rules>
+    <rules><fullName>Tardis Check Customer Type</fullName><active>false</active></rules>
+</Workflow>
