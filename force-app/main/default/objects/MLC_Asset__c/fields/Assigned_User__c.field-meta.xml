@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_User__c</fullName>
+    <label>Assigned User</label>
+    <type>Lookup</type>
+    <inlineHelpText>The Internal user assigned to the asset who is responsible for following up on the asset. This is typically the BDA.</inlineHelpText>
+    <required>false</required>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Assigned_User__r</relationshipName>
+</CustomField>

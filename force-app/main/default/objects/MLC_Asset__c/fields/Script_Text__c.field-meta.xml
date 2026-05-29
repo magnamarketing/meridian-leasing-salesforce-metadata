@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Script_Text__c</fullName>
+    <label>Script Text</label>
+    <type>LongTextArea</type>
+    <inlineHelpText>The text of the script that is used to create the video.</inlineHelpText>
+    <required>false</required>
+    <length>5000</length>
+    <visibleLines>3</visibleLines>
+</CustomField>

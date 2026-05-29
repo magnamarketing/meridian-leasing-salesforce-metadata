@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nuture_Tier__c</fullName>
+    <label>Nuture Tier</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>N/A</fullName><default>false</default><label>N/A</label><isActive>true</isActive></value>
+            <value><fullName>1</fullName><default>false</default><label>1</label><isActive>true</isActive></value>
+            <value><fullName>3</fullName><default>false</default><label>3</label><isActive>true</isActive></value>
+            <value><fullName>5</fullName><default>false</default><label>5</label><isActive>true</isActive></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

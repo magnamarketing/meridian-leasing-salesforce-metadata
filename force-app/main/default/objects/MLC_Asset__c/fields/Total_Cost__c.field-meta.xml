@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Cost__c</fullName>
+    <label>Total Cost</label>
+    <type>Currency</type>
+    <inlineHelpText>Total cost calculation including return scenarios.</inlineHelpText>
+    <precision>18</precision>
+    <scale>2</scale>
+    <formula>IF(text(Status__c) == "Returned",(2 * Shipping_Cost__c ) + Packaging_Cost__c, Price__c + Shipping_Cost__c + Packaging_Cost__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+</CustomField>
