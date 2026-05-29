@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Placeholder: Retrieve from source org using: sf project retrieve start --metadata Flow:Task_Automations_Before_Save -->
+<!-- Type: AutoLaunchedFlow | Status: Active | API Version: 63 | Last Modified: 2025-03-27 -->
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <label>Task: Automations Before Save</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+</Flow>

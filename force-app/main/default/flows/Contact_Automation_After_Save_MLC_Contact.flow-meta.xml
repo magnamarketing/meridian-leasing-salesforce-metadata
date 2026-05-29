@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Placeholder: Retrieve from source org using: sf project retrieve start --metadata Flow:Contact_Automation_After_Save_MLC_Contact -->
+<!-- Type: AutoLaunchedFlow | Status: Active | API Version: 62 | Last Modified: 2024-10-30 -->
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <label>Contact: Automation After Save MLC Contact</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+</Flow>
