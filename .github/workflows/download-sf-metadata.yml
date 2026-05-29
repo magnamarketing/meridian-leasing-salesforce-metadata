@@ -1,0 +1,84 @@
+name: Download Salesforce Object Metadata from S3
+
+# Triggers on the push that introduces this workflow file, then downloads all
+# 11 complete Salesforce object JSON files from S3 and commits them with the
+# required feat commit message. The path-ignore on subsequent pushes prevents
+# an infinite loop.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/download-sf-metadata.yml'
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download all 11 Salesforce object metadata files from S3
+        run: |
+          S3_BASE="https://ai-mtgbridge-staging.s3.amazonaws.com/artifacts/data-processor/b35ddf94-9c80-4e72-986d-cb693596b3fd/output"
+
+          download() {
+            local src="$1"
+            local dest="$2"
+            mkdir -p "$(dirname "$dest")"
+            echo "  Downloading $src  →  $dest"
+            curl -fSL "${S3_BASE}/${src}" -o "$dest"
+            echo "  Done: $(wc -c < "$dest") bytes"
+          }
+
+          download "Account.json"        "force-app/main/default/objects/Account/Account.json"
+          download "Contact.json"        "force-app/main/default/objects/Contact/Contact.json"
+          download "Opportunity.json"    "force-app/main/default/objects/Opportunity/Opportunity.json"
+          download "Lead.json"           "force-app/main/default/objects/Lead/Lead.json"
+          download "Campaign.json"       "force-app/main/default/objects/Campaign/Campaign.json"
+          download "CampaignMember.json" "force-app/main/default/objects/CampaignMember/CampaignMember.json"
+          download "Task.json"           "force-app/main/default/objects/Task/Task.json"
+          download "Event.json"          "force-app/main/default/objects/Event/Event.json"
+          download "Product2.json"       "force-app/main/default/objects/Product2/Product2.json"
+          download "PricebookEntry.json" "force-app/main/default/objects/PricebookEntry/PricebookEntry.json"
+          download "MLC_Asset_c.json"    "force-app/main/default/objects/MLC_Asset__c/MLC_Asset__c.json"
+
+      - name: Validate downloaded files
+        run: |
+          echo "File sizes:"
+          for f in \
+            force-app/main/default/objects/Account/Account.json \
+            force-app/main/default/objects/Contact/Contact.json \
+            force-app/main/default/objects/Opportunity/Opportunity.json \
+            force-app/main/default/objects/Lead/Lead.json \
+            force-app/main/default/objects/Campaign/Campaign.json \
+            force-app/main/default/objects/CampaignMember/CampaignMember.json \
+            force-app/main/default/objects/Task/Task.json \
+            force-app/main/default/objects/Event/Event.json \
+            force-app/main/default/objects/Product2/Product2.json \
+            force-app/main/default/objects/PricebookEntry/PricebookEntry.json \
+            force-app/main/default/objects/MLC_Asset__c/MLC_Asset__c.json; do
+            if [ -f "$f" ]; then
+              fields=$(python3 -c "import json,sys; d=json.load(open('$f')); print(len(d.get('fields',[])))" 2>/dev/null || echo '?')
+              echo "  $f  |  $(du -h $f | cut -f1)  |  $fields fields"
+            else
+              echo "  MISSING: $f"
+            fi
+          done
+
+      - name: Commit and push all metadata files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add force-app/main/default/objects/
+          if git diff --cached --quiet; then
+            echo "No changes detected — metadata files already up to date."
+          else
+            git commit -m "feat: add complete field metadata for all 11 objects (2000+ fields)"
+            git push
+            echo "Successfully committed and pushed all 11 Salesforce object metadata files."
+          fi
