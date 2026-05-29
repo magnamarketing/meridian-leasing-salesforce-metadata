@@ -1,0 +1,31 @@
+{
+  "objectApiName": "Product2",
+  "label": "Product",
+  "objectType": "Standard",
+  "description": "Stores Meridian Leasing Company's product offerings and SKUs. Configuration includes product setup in the target org, recreation of current product fields, creation of a custom Product_Type__c field to reinforce bundle logic, and configuration of product bundle relationships. Active and inactive product records are reviewed for migration.",
+  "migrationIncluded": true,
+  "migrationNotes": "Product records related to MLC Assets migrated. Review active and inactive product records for inclusion. Product bundle relationships must be preserved.",
+  "relationships": [
+    { "relatedObject": "PricebookEntry", "type": "OneToMany", "description": "Product has PricebookEntry records linking it to Pricebooks" },
+    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "Product looked up from MLC Asset records via Product__c field" },
+    { "relatedObject": "Product_Bundle__c", "type": "OneToMany", "description": "Product participates in Product Bundle structures as parent or child bundle component" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Product ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Name", "label": "Product Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "ProductCode", "label": "Product Code", "type": "Text", "required": false, "custom": false },
+    { "apiName": "Description", "label": "Description", "type": "LongTextArea", "required": false, "custom": false },
+    { "apiName": "IsActive", "label": "Active", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "Family", "label": "Product Family", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Product_Type__c", "label": "Product Type", "type": "Picklist", "required": false, "custom": true, "notes": "Custom field added to reinforce bundle logic. Distinguishes bundle parent products from component child products." },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Confirm Product_Type__c is visible and accessible."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile. Product_Type__c must be accessible to the profile."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

@@ -1,0 +1,36 @@
+{
+  "objectApiName": "Event",
+  "label": "Event",
+  "objectType": "Standard",
+  "description": "Activity object capturing calendar events related to Leads, Contacts, Accounts, Opportunities, and Campaigns. Events are synced via Einstein Activity Capture with Microsoft Outlook and calendar integration.",
+  "migrationIncluded": true,
+  "migrationNotes": "150,000 activity records (Tasks and Events combined) confirmed for migration. Historical event visibility must be validated post-migration.",
+  "relationships": [
+    { "relatedObject": "Lead", "type": "ManyToOne", "description": "Event linked to Lead via WhoId" },
+    { "relatedObject": "Contact", "type": "ManyToOne", "description": "Event linked to Contact via WhoId" },
+    { "relatedObject": "Account", "type": "ManyToOne", "description": "Event linked to Account via WhatId" },
+    { "relatedObject": "Opportunity", "type": "ManyToOne", "description": "Event linked to Opportunity via WhatId" },
+    { "relatedObject": "Campaign", "type": "ManyToOne", "description": "Event linked to Campaign via WhatId" }
+  ],
+  "einsteinActivityCapture": {
+    "enabled": true,
+    "notes": "Events synced from Microsoft Outlook calendar via Einstein Activity Capture. Includes email and calendar sync. Testing performed with sample users prior to go-live."
+  },
+  "fields": [
+    { "apiName": "Id", "label": "Event ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Subject", "label": "Subject", "type": "Text", "required": true, "custom": false },
+    { "apiName": "StartDateTime", "label": "Start Date Time", "type": "DateTime", "required": true, "custom": false },
+    { "apiName": "EndDateTime", "label": "End Date Time", "type": "DateTime", "required": true, "custom": false },
+    { "apiName": "DurationInMinutes", "label": "Duration", "type": "Number", "required": false, "custom": false },
+    { "apiName": "Location", "label": "Location", "type": "Text", "required": false, "custom": false },
+    { "apiName": "IsAllDayEvent", "label": "All Day Event", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "WhoId", "label": "Name (Lead or Contact)", "type": "Lookup(Lead,Contact)", "required": false, "custom": false },
+    { "apiName": "WhatId", "label": "Related To", "type": "Lookup(polymorphic)", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Assigned To", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "Description", "label": "Description", "type": "LongTextArea", "required": false, "custom": false },
+    { "apiName": "IsArchived", "label": "Archived", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

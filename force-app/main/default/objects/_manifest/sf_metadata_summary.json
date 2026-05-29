@@ -1,0 +1,127 @@
+{
+  "project": "Meridian Leasing Company - Salesforce Sales Cloud Migration",
+  "client": "Meridian Leasing Company",
+  "implementationPartner": "Magna Technology Group",
+  "documentReference": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (May 2026)",
+  "generatedDate": "2026-05-29",
+  "branch": "main",
+  "repository": "magnamarketing/meridian-leasing-salesforce-metadata",
+  "metadataBasePath": "force-app/main/default/objects",
+  "totalObjectsInScope": 11,
+  "migrationScope": {
+    "totalActivityRecords": 150000,
+    "totalCampaignRecords": 455,
+    "notes": "Lead, Account, Contact, Opportunity, CampaignMember, MLC Asset, and Product record counts are N (to be confirmed in final migration file set)."
+  },
+  "objects": [
+    {
+      "objectApiName": "Account",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Account/Account.json",
+      "keyNotes": "Lightning page modified to include MLC Assets related list."
+    },
+    {
+      "objectApiName": "Contact",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Contact/Contact.json",
+      "keyNotes": "MLC Asset relationship setup. Activity history validated post-migration."
+    },
+    {
+      "objectApiName": "Opportunity",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Opportunity/Opportunity.json",
+      "keyNotes": "Historical opportunity records migrated if confirmed in final scope."
+    },
+    {
+      "objectApiName": "Lead",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Lead/Lead.json",
+      "keyNotes": "Lead conversion mapping must be validated. Data imported if in final migration file set."
+    },
+    {
+      "objectApiName": "Campaign",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "confirmedRecordCount": 455,
+      "filePath": "force-app/main/default/objects/Campaign/Campaign.json",
+      "keyNotes": "Campaign-level cost and asset relationships must be validated post-migration."
+    },
+    {
+      "objectApiName": "CampaignMember",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/CampaignMember/CampaignMember.json",
+      "keyNotes": "Used by MLC Asset Mass Creation Flow. Campaign history must be accurately preserved."
+    },
+    {
+      "objectApiName": "Task",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Task/Task.json",
+      "keyNotes": "Part of 150,000 combined activity records. Synced via Einstein Activity Capture."
+    },
+    {
+      "objectApiName": "Event",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Event/Event.json",
+      "keyNotes": "Part of 150,000 combined activity records. Synced via Einstein Activity Capture with Outlook calendar."
+    },
+    {
+      "objectApiName": "Product2",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/Product2/Product2.json",
+      "keyNotes": "Custom field Product_Type__c added to reinforce bundle logic. Active and inactive records reviewed for migration."
+    },
+    {
+      "objectApiName": "PricebookEntry",
+      "objectType": "Standard",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/PricebookEntry/PricebookEntry.json",
+      "keyNotes": "Must be migrated in conjunction with Product2 records. Validate all active products have Standard Pricebook entries."
+    },
+    {
+      "objectApiName": "MLC_Asset__c",
+      "objectType": "Custom",
+      "migrationIncluded": true,
+      "filePath": "force-app/main/default/objects/MLC_Asset__c/MLC_Asset__c.json",
+      "keyNotes": "Primary custom object. Supports asset and shipping cost calculations at campaign level. Linked to Campaign, Contact, Account, CampaignMember, Product2, and Product Bundle. Created via Mass Creation Screen Flow."
+    }
+  ],
+  "additionalCustomObjects": [
+    {
+      "objectApiName": "Product_Bundle__c",
+      "objectType": "Custom",
+      "migrationIncluded": true,
+      "filePath": "TBD - not in primary 11-object scope",
+      "keyNotes": "Product Bundle custom object links parent bundle products to child component products. Required for MLC Asset calculations. Must be recreated and validated before MLC Asset migration."
+    }
+  ],
+  "integrations": [
+    {
+      "name": "Einstein Activity Capture",
+      "platform": "Microsoft Outlook",
+      "scope": "Email sync, calendar sync, contact sync, activity visibility",
+      "notes": "AppExchange setup required. Client-side app or license guidance provided. Testing with sample users prior to go-live."
+    }
+  ],
+  "automation": [
+    {
+      "name": "MLC Asset Mass Creation Flow",
+      "type": "Screen Flow",
+      "triggerObject": "Campaign",
+      "description": "Allows mass creation of MLC Asset records from a Campaign record page. Supports up to 5 MLC Asset/Product combinations per flow run across multiple selected contacts."
+    }
+  ],
+  "implementationTimeline": {
+    "estimatedDuration": "4 weeks",
+    "goLiveTarget": "End of May 2026",
+    "trainingSessions": 3,
+    "trainingHours": 6
+  }
+}

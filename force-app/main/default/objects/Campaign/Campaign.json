@@ -1,0 +1,36 @@
+{
+  "objectApiName": "Campaign",
+  "label": "Campaign",
+  "objectType": "Standard",
+  "description": "Supports marketing and sales campaign tracking. Configuration includes recreation of relevant campaign fields, page layout setup, relationship validation with Campaign Members, relationship setup with MLC Assets, migration of historical campaign records, and validation of campaign-level cost and asset relationships.",
+  "migrationIncluded": true,
+  "migrationNotes": "455 campaign records confirmed for migration from source org. Campaign-level cost and asset relationships must be validated post-migration.",
+  "relationships": [
+    { "relatedObject": "CampaignMember", "type": "OneToMany", "description": "Campaign has many CampaignMember records" },
+    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "Campaign related to MLC Asset records; MLC Asset calculations operate at campaign level" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Campaign ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Name", "label": "Campaign Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "Type", "label": "Campaign Type", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Status", "label": "Campaign Status", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "StartDate", "label": "Start Date", "type": "Date", "required": false, "custom": false },
+    { "apiName": "EndDate", "label": "End Date", "type": "Date", "required": false, "custom": false },
+    { "apiName": "BudgetedCost", "label": "Budgeted Cost", "type": "Currency", "required": false, "custom": false },
+    { "apiName": "ActualCost", "label": "Actual Cost", "type": "Currency", "required": false, "custom": false },
+    { "apiName": "ExpectedRevenue", "label": "Expected Revenue", "type": "Currency", "required": false, "custom": false },
+    { "apiName": "NumberSent", "label": "Number Sent", "type": "Number", "required": false, "custom": false },
+    { "apiName": "IsActive", "label": "Active", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "Description", "label": "Description", "type": "LongTextArea", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Campaign Owner", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Add MLC Assets related list. Include campaign-level cost and asset calculation visibility."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

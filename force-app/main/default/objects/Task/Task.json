@@ -1,0 +1,35 @@
+{
+  "objectApiName": "Task",
+  "label": "Task",
+  "objectType": "Standard",
+  "description": "Activity object capturing tasks related to Leads, Contacts, Accounts, Opportunities, and Campaigns. Activity records are captured and synced via Einstein Activity Capture with Microsoft Outlook integration.",
+  "migrationIncluded": true,
+  "migrationNotes": "150,000 activity records (Tasks and Events combined) confirmed for migration. Historical task visibility must be validated post-migration.",
+  "relationships": [
+    { "relatedObject": "Lead", "type": "ManyToOne", "description": "Task linked to Lead via WhoId" },
+    { "relatedObject": "Contact", "type": "ManyToOne", "description": "Task linked to Contact via WhoId" },
+    { "relatedObject": "Account", "type": "ManyToOne", "description": "Task linked to Account via WhatId" },
+    { "relatedObject": "Opportunity", "type": "ManyToOne", "description": "Task linked to Opportunity via WhatId" },
+    { "relatedObject": "Campaign", "type": "ManyToOne", "description": "Task linked to Campaign via WhatId" }
+  ],
+  "einsteinActivityCapture": {
+    "enabled": true,
+    "notes": "Tasks synced from Microsoft Outlook via Einstein Activity Capture. AppExchange setup required. Client-side app or license setup guidance to be provided."
+  },
+  "fields": [
+    { "apiName": "Id", "label": "Task ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Subject", "label": "Subject", "type": "Picklist", "required": true, "custom": false },
+    { "apiName": "Status", "label": "Status", "type": "Picklist", "required": true, "custom": false },
+    { "apiName": "Priority", "label": "Priority", "type": "Picklist", "required": true, "custom": false },
+    { "apiName": "ActivityDate", "label": "Due Date", "type": "Date", "required": false, "custom": false },
+    { "apiName": "WhoId", "label": "Name (Lead or Contact)", "type": "Lookup(Lead,Contact)", "required": false, "custom": false },
+    { "apiName": "WhatId", "label": "Related To", "type": "Lookup(polymorphic)", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Assigned To", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "Description", "label": "Comments", "type": "LongTextArea", "required": false, "custom": false },
+    { "apiName": "IsArchived", "label": "Archived", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "IsClosed", "label": "Closed", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

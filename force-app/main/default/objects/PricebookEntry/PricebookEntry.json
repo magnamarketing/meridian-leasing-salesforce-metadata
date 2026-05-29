@@ -1,0 +1,24 @@
+{
+  "objectApiName": "PricebookEntry",
+  "label": "Pricebook Entry",
+  "objectType": "Standard",
+  "description": "Links Products to Pricebooks with associated unit prices. Required to associate products with Opportunities via OpportunityLineItems and to support MLC Asset and product bundle cost calculations.",
+  "migrationIncluded": true,
+  "migrationNotes": "PricebookEntry records must be migrated in conjunction with Product2 records. Validate that all active products have entries in the Standard Pricebook. Required for Opportunity product associations.",
+  "relationships": [
+    { "relatedObject": "Product2", "type": "ManyToOne", "description": "PricebookEntry references a Product2 record via Product2Id" },
+    { "relatedObject": "Pricebook2", "type": "ManyToOne", "description": "PricebookEntry references a Pricebook2 record via Pricebook2Id" },
+    { "relatedObject": "Opportunity", "type": "OneToMany", "description": "PricebookEntry referenced by OpportunityLineItem records" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Pricebook Entry ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Pricebook2Id", "label": "Pricebook", "type": "Lookup(Pricebook2)", "required": true, "custom": false },
+    { "apiName": "Product2Id", "label": "Product", "type": "Lookup(Product2)", "required": true, "custom": false },
+    { "apiName": "UnitPrice", "label": "List Price", "type": "Currency", "required": true, "custom": false },
+    { "apiName": "IsActive", "label": "Active", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "UseStandardPrice", "label": "Use Standard Price", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

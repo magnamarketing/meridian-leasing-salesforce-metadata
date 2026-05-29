@@ -1,0 +1,49 @@
+{
+  "objectApiName": "Lead",
+  "label": "Lead",
+  "objectType": "Standard",
+  "description": "Supports prospect tracking before conversion into Account, Contact, and Opportunity records. Configuration includes recreation of current lead fields, page layout setup, lead status and source value review, and lead conversion mapping validation.",
+  "migrationIncluded": true,
+  "migrationNotes": "Lead data imported if included in the final migration file set. Lead status and source picklist values must be reviewed and replicated prior to import.",
+  "relationships": [
+    { "relatedObject": "CampaignMember", "type": "OneToMany", "description": "Lead participates in Campaigns via CampaignMember" },
+    { "relatedObject": "Task", "type": "OneToMany", "description": "Activity history via WhoId" },
+    { "relatedObject": "Event", "type": "OneToMany", "description": "Activity history via WhoId" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Lead ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "FirstName", "label": "First Name", "type": "Text", "required": false, "custom": false },
+    { "apiName": "LastName", "label": "Last Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "Company", "label": "Company", "type": "Text", "required": true, "custom": false },
+    { "apiName": "Title", "label": "Title", "type": "Text", "required": false, "custom": false },
+    { "apiName": "Email", "label": "Email", "type": "Email", "required": false, "custom": false },
+    { "apiName": "Phone", "label": "Phone", "type": "Phone", "required": false, "custom": false },
+    { "apiName": "MobilePhone", "label": "Mobile Phone", "type": "Phone", "required": false, "custom": false },
+    { "apiName": "Status", "label": "Lead Status", "type": "Picklist", "required": true, "custom": false, "notes": "Review and replicate picklist values from source org" },
+    { "apiName": "LeadSource", "label": "Lead Source", "type": "Picklist", "required": false, "custom": false, "notes": "Review and replicate picklist values from source org" },
+    { "apiName": "Industry", "label": "Industry", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Street", "label": "Street", "type": "TextArea", "required": false, "custom": false },
+    { "apiName": "City", "label": "City", "type": "Text", "required": false, "custom": false },
+    { "apiName": "State", "label": "State", "type": "Text", "required": false, "custom": false },
+    { "apiName": "PostalCode", "label": "Zip/Postal Code", "type": "Text", "required": false, "custom": false },
+    { "apiName": "Country", "label": "Country", "type": "Text", "required": false, "custom": false },
+    { "apiName": "IsConverted", "label": "Converted", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "ConvertedDate", "label": "Converted Date", "type": "Date", "required": false, "custom": false },
+    { "apiName": "ConvertedAccountId", "label": "Converted Account", "type": "Lookup(Account)", "required": false, "custom": false },
+    { "apiName": "ConvertedContactId", "label": "Converted Contact", "type": "Lookup(Contact)", "required": false, "custom": false },
+    { "apiName": "ConvertedOpportunityId", "label": "Converted Opportunity", "type": "Lookup(Opportunity)", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Lead Owner", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "leadConversionMapping": {
+    "notes": "Validate lead conversion field mapping prior to go-live. Ensure all custom lead fields map to equivalent Account, Contact, and Opportunity fields."
+  },
+  "pageLayout": {
+    "notes": "Recreate current page layout. Confirm lead status and source values."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

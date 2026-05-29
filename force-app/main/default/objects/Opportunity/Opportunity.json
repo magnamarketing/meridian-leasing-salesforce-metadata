@@ -1,0 +1,37 @@
+{
+  "objectApiName": "Opportunity",
+  "label": "Opportunity",
+  "objectType": "Standard",
+  "description": "Supports sales pipeline tracking and deal management. Configuration includes recreation of current opportunity fields, page layout setup, sales stage review, required field review, and relationship validation with Accounts, Contacts, Products, and Activities.",
+  "migrationIncluded": true,
+  "migrationNotes": "Historical opportunity records migrated if confirmed in final migration scope. Validate record counts and field accuracy post-migration.",
+  "relationships": [
+    { "relatedObject": "Account", "type": "ManyToOne", "description": "Opportunity belongs to Account via AccountId" },
+    { "relatedObject": "Contact", "type": "ManyToMany", "description": "Contact association via OpportunityContactRole" },
+    { "relatedObject": "Product2", "type": "ManyToMany", "description": "Products associated via OpportunityLineItem (PricebookEntry)" },
+    { "relatedObject": "Task", "type": "OneToMany", "description": "Activity history via WhatId" },
+    { "relatedObject": "Event", "type": "OneToMany", "description": "Activity history via WhatId" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Opportunity ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Name", "label": "Opportunity Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "AccountId", "label": "Account Name", "type": "Lookup(Account)", "required": false, "custom": false },
+    { "apiName": "StageName", "label": "Stage", "type": "Picklist", "required": true, "custom": false, "notes": "Review and confirm stage picklist values match current org" },
+    { "apiName": "Amount", "label": "Amount", "type": "Currency", "required": false, "custom": false },
+    { "apiName": "CloseDate", "label": "Close Date", "type": "Date", "required": true, "custom": false },
+    { "apiName": "Probability", "label": "Probability (%)", "type": "Percent", "required": false, "custom": false },
+    { "apiName": "Type", "label": "Opportunity Type", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "LeadSource", "label": "Lead Source", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Description", "label": "Description", "type": "LongTextArea", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Opportunity Owner", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Confirm required fields and sales stage picklist values."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

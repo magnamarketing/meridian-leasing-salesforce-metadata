@@ -1,0 +1,41 @@
+{
+  "objectApiName": "Contact",
+  "label": "Contact",
+  "objectType": "Standard",
+  "description": "Stores individual people associated with Accounts. Configuration includes recreation of current contact fields, page layout setup, Account relationship validation, MLC Asset relationship setup, contact ownership and visibility review, and import of contact data.",
+  "migrationIncluded": true,
+  "migrationNotes": "Contact data imported from current Salesforce org. Activity history validated post-migration where applicable.",
+  "relationships": [
+    { "relatedObject": "Account", "type": "ManyToOne", "description": "Contact belongs to Account via AccountId" },
+    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "Contact related to MLC Asset records via Lookup" },
+    { "relatedObject": "CampaignMember", "type": "OneToMany", "description": "Contact participates in Campaigns via CampaignMember" },
+    { "relatedObject": "Opportunity", "type": "ManyToMany", "description": "Contact associated to Opportunities via OpportunityContactRole" },
+    { "relatedObject": "Task", "type": "OneToMany", "description": "Activity history via WhoId" },
+    { "relatedObject": "Event", "type": "OneToMany", "description": "Activity history via WhoId" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Contact ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "FirstName", "label": "First Name", "type": "Text", "required": false, "custom": false },
+    { "apiName": "LastName", "label": "Last Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "AccountId", "label": "Account Name", "type": "Lookup(Account)", "required": false, "custom": false },
+    { "apiName": "Title", "label": "Title", "type": "Text", "required": false, "custom": false },
+    { "apiName": "Email", "label": "Email", "type": "Email", "required": false, "custom": false },
+    { "apiName": "Phone", "label": "Business Phone", "type": "Phone", "required": false, "custom": false },
+    { "apiName": "MobilePhone", "label": "Mobile Phone", "type": "Phone", "required": false, "custom": false },
+    { "apiName": "MailingStreet", "label": "Mailing Street", "type": "TextArea", "required": false, "custom": false },
+    { "apiName": "MailingCity", "label": "Mailing City", "type": "Text", "required": false, "custom": false },
+    { "apiName": "MailingState", "label": "Mailing State", "type": "Text", "required": false, "custom": false },
+    { "apiName": "MailingPostalCode", "label": "Mailing Zip", "type": "Text", "required": false, "custom": false },
+    { "apiName": "MailingCountry", "label": "Mailing Country", "type": "Text", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Contact Owner", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Include MLC Assets related list."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile. Review contact ownership and visibility settings."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

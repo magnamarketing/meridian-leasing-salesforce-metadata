@@ -1,0 +1,29 @@
+{
+  "objectApiName": "CampaignMember",
+  "label": "Campaign Member",
+  "objectType": "Standard",
+  "description": "Manages the relationship between Campaigns and Leads or Contacts. Configuration includes review of current campaign member fields, campaign member status review, relationship validation with Campaign, Lead, and Contact records, and migration of campaign member records with validation that campaign history is accurately preserved.",
+  "migrationIncluded": true,
+  "migrationNotes": "Campaign member record count is N (to be confirmed). Campaign history must be accurately preserved post-migration. Used by the MLC Asset Mass Creation Flow to retrieve contacts for asset creation.",
+  "relationships": [
+    { "relatedObject": "Campaign", "type": "ManyToOne", "description": "CampaignMember belongs to Campaign via CampaignId" },
+    { "relatedObject": "Lead", "type": "ManyToOne", "description": "CampaignMember optionally linked to Lead via LeadId" },
+    { "relatedObject": "Contact", "type": "ManyToOne", "description": "CampaignMember optionally linked to Contact via ContactId" },
+    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "CampaignMember Contacts are selected during MLC Asset mass creation flow" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Campaign Member ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "CampaignId", "label": "Campaign", "type": "MasterDetail(Campaign)", "required": true, "custom": false },
+    { "apiName": "LeadId", "label": "Lead", "type": "Lookup(Lead)", "required": false, "custom": false },
+    { "apiName": "ContactId", "label": "Contact", "type": "Lookup(Contact)", "required": false, "custom": false },
+    { "apiName": "Status", "label": "Member Status", "type": "Picklist", "required": false, "custom": false, "notes": "Review and replicate campaign member status picklist values from source org" },
+    { "apiName": "HasResponded", "label": "Responded", "type": "Checkbox", "required": false, "custom": false },
+    { "apiName": "FirstRespondedDate", "label": "First Responded Date", "type": "Date", "required": false, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Validate campaign history is preserved."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

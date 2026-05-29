@@ -1,0 +1,38 @@
+{
+  "objectApiName": "Account",
+  "label": "Account",
+  "objectType": "Standard",
+  "description": "Stores company and customer records for Meridian Leasing. Includes recreation of current account fields, page layout setup, field-level security alignment, and relationship validation with Contacts, Opportunities, Activities, and MLC Assets.",
+  "migrationIncluded": true,
+  "migrationNotes": "Account records imported from current Salesforce org. Lightning page modified to include related MLC Assets list.",
+  "relationships": [
+    { "relatedObject": "Contact", "type": "OneToMany", "description": "Account has many Contacts" },
+    { "relatedObject": "Opportunity", "type": "OneToMany", "description": "Account has many Opportunities" },
+    { "relatedObject": "MLC_Asset__c", "type": "OneToMany", "description": "Account related to MLC Asset records via Lookup" },
+    { "relatedObject": "Task", "type": "OneToMany", "description": "Activity history via WhatId" },
+    { "relatedObject": "Event", "type": "OneToMany", "description": "Activity history via WhatId" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "Account ID", "type": "Id", "required": true, "custom": false },
+    { "apiName": "Name", "label": "Account Name", "type": "Text", "required": true, "custom": false },
+    { "apiName": "Type", "label": "Account Type", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Industry", "label": "Industry", "type": "Picklist", "required": false, "custom": false },
+    { "apiName": "Phone", "label": "Phone", "type": "Phone", "required": false, "custom": false },
+    { "apiName": "Website", "label": "Website", "type": "URL", "required": false, "custom": false },
+    { "apiName": "BillingStreet", "label": "Billing Street", "type": "TextArea", "required": false, "custom": false },
+    { "apiName": "BillingCity", "label": "Billing City", "type": "Text", "required": false, "custom": false },
+    { "apiName": "BillingState", "label": "Billing State", "type": "Text", "required": false, "custom": false },
+    { "apiName": "BillingPostalCode", "label": "Billing Zip", "type": "Text", "required": false, "custom": false },
+    { "apiName": "BillingCountry", "label": "Billing Country", "type": "Text", "required": false, "custom": false },
+    { "apiName": "OwnerId", "label": "Account Owner", "type": "Lookup(User)", "required": true, "custom": false },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": false },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": false }
+  ],
+  "pageLayout": {
+    "notes": "Recreate current page layout. Add MLC Assets related list to Lightning Record Page."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile configured for this org."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}

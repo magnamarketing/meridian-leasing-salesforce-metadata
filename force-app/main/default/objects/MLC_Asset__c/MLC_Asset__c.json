@@ -1,0 +1,52 @@
+{
+  "objectApiName": "MLC_Asset__c",
+  "label": "MLC Asset",
+  "objectType": "Custom",
+  "description": "Primary custom object for Meridian Leasing Company. Required because the standard Salesforce Asset object does not support the specific roll-up relationships and calculations needed. Supports asset and shipping cost calculations at the campaign level based on product bundles. Created via the MLC Asset Mass Creation Screen Flow from Campaign record pages.",
+  "migrationIncluded": true,
+  "migrationNotes": "MLC Asset records migrated from current Salesforce org. Custom object, custom fields, lookup relationships, and page layouts must be recreated in target org prior to data migration. Reporting requirements and calculation dependencies must be confirmed before migration. Reconcile migrated records against source org.",
+  "relationships": [
+    { "relatedObject": "Campaign", "type": "ManyToOne", "description": "MLC Asset belongs to a Campaign via Campaign__c lookup" },
+    { "relatedObject": "CampaignMember", "type": "ManyToOne", "description": "MLC Asset associated to CampaignMember via CampaignMember__c lookup" },
+    { "relatedObject": "Account", "type": "ManyToOne", "description": "MLC Asset associated to Account via Account__c lookup" },
+    { "relatedObject": "Contact", "type": "ManyToOne", "description": "MLC Asset associated to Contact via Contact__c lookup" },
+    { "relatedObject": "Product2", "type": "ManyToOne", "description": "MLC Asset references a Product via Product__c lookup to Product2" },
+    { "relatedObject": "Product_Bundle__c", "type": "ManyToOne", "description": "MLC Asset associated to Product Bundle via ProductBundle__c lookup" }
+  ],
+  "fields": [
+    { "apiName": "Id", "label": "MLC Asset ID", "type": "Id", "required": true, "custom": true },
+    { "apiName": "Name", "label": "MLC Asset Name", "type": "Text", "required": true, "custom": true, "notes": "Auto-populated or user-defined during Mass Creation Flow" },
+    { "apiName": "Campaign__c", "label": "Campaign", "type": "Lookup(Campaign)", "required": true, "custom": true, "notes": "Passed automatically from Campaign record page when flow is launched" },
+    { "apiName": "Contact__c", "label": "Contact", "type": "Lookup(Contact)", "required": true, "custom": true, "notes": "Set per selected contact during MLC Asset Mass Creation Flow" },
+    { "apiName": "Account__c", "label": "Account", "type": "Lookup(Account)", "required": false, "custom": true },
+    { "apiName": "CampaignMember__c", "label": "Campaign Member", "type": "Lookup(CampaignMember)", "required": false, "custom": true },
+    { "apiName": "Product__c", "label": "Product", "type": "Lookup(Product2)", "required": false, "custom": true, "notes": "Selected per product section in Mass Creation Flow; up to 5 per flow run" },
+    { "apiName": "ProductBundle__c", "label": "Product Bundle", "type": "Lookup(Product_Bundle__c)", "required": false, "custom": true },
+    { "apiName": "Equipment_Type__c", "label": "Equipment Type", "type": "Text", "required": false, "custom": true, "notes": "Optional asset field; selectable in Mass Creation Flow product section" },
+    { "apiName": "Manufacturer__c", "label": "Manufacturer", "type": "Text", "required": false, "custom": true, "notes": "Optional asset field; selectable in Mass Creation Flow product section" },
+    { "apiName": "Model__c", "label": "Model", "type": "Text", "required": false, "custom": true, "notes": "Optional asset field; selectable in Mass Creation Flow product section" },
+    { "apiName": "Asset_Cost__c", "label": "Asset Cost", "type": "Currency", "required": false, "custom": true, "notes": "Supports asset cost calculation at campaign level" },
+    { "apiName": "Shipping_Cost__c", "label": "Shipping Cost", "type": "Currency", "required": false, "custom": true, "notes": "Supports shipping cost calculation at campaign level" },
+    { "apiName": "CreatedDate", "label": "Created Date", "type": "DateTime", "required": false, "custom": true },
+    { "apiName": "LastModifiedDate", "label": "Last Modified Date", "type": "DateTime", "required": false, "custom": true }
+  ],
+  "flow": {
+    "name": "MLC Asset Mass Creation Flow",
+    "type": "Screen Flow",
+    "entryPoint": "Campaign record page action button",
+    "screens": [
+      { "screen": 1, "purpose": "Campaign context confirmation - confirms or auto-populates campaign from record page" },
+      { "screen": 2, "purpose": "Contact selection - retrieve and multi-select campaign member contacts" },
+      { "screen": 3, "purpose": "MLC Asset and product selection - up to 5 asset/product combinations; checkbox to apply same product to all contacts" },
+      { "screen": 4, "purpose": "Review and confirmation - summary before record creation" }
+    ],
+    "outcome": "Creates one MLC Asset record per selected contact per completed product section"
+  },
+  "pageLayout": {
+    "notes": "Recreate custom object page layout. Confirm reporting requirements. Validate calculation dependencies."
+  },
+  "fieldLevelSecurity": {
+    "notes": "Align FLS to the one standardized profile. Ensure access to custom object and all custom fields."
+  },
+  "source": "Meridian Leasing - Salesforce Sales Cloud Migration Design Document (Magna Technology Group, May 2026)"
+}
