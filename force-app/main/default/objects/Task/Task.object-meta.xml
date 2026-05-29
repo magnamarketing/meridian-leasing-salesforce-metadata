@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Placeholder: Retrieve full metadata using: sf project retrieve start --metadata CustomObject:Task -->
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Task</label>
+    <pluralLabel>Tasks</pluralLabel>
+    <enableHistory>false</enableHistory>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableSearch>true</enableSearch>
+    <enableStreamingApi>true</enableStreamingApi>
 </CustomObject>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
-    <description>MLC Tasks record type</description>
     <fullName>MLC_tasks</fullName>
+    <active>true</active>
     <label>MLC Tasks</label>
 </RecordType>

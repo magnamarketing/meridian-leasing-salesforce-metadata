@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
-    <description>Campaign Member MLC record type</description>
     <fullName>Campaign_Member_MLC</fullName>
+    <active>true</active>
     <label>Campaign Member: MLC</label>
 </RecordType>
