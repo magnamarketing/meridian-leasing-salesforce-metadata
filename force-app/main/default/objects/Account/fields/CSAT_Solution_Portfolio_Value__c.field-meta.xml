@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CSAT_Solution_Portfolio_Value__c</fullName>
+    <label>Solution Portfolio &amp; Value</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet><restricted>false</restricted></valueSet>
+</CustomField>
